@@ -43,7 +43,8 @@
                           th:href="@{/cliente/{id} (id=${cliente.id})}"
                         ></a>
                       </td>
-                      <td th:text="${cliente.dataNascimento}"></td>
+                      <!--<td th:text="${#temporals.format(cliente.dataNascimento)}"></td> --formata a data 01 de Janeiro de 1992 -->
+                      <td th:text="${#temporals.format(cliente.dataNascimento, 'dd/MM/yyyy')}"></td>
                       <td th:text="${cliente.profissao}"></td>
                       <td>
                         <a th:href="@{/cliente/{id}/editar (id=${cliente.id})}"
