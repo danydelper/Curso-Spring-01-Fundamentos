@@ -1,59 +1,50 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html th:replace="~{_fragments/_layout :: layout (~{::title}, ~{::main})}">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-
-    <!--    
-        <title th:unless="${cliente.id == null}">Spring Fundamentos - Editar cliente</title>
-        <title th:if="${cliente.id == null}">Spring Fundamentos - Cadastrar novo Cliente</title>
-    -->
     <title th:text="${cliente.id == null ?'Spring Fundamentos - Cadastrar novo Cliente' : 'Spring Fundamentos - Editar Cliente'}"></title>
-
 </head>
 <body>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">Twclientes</a>
+    <main class="container">
+        <div class="row">
+            <div class="col-sm-12">
+            <!--    
+            <h1 th:unless="${cliente.id == null}">Editar Cliente</h1>
+            <h1 th:if="${cliente.id == null}">Cadastrar novo Cliente</h1>
+            -->
+            <h1 th:text="${cliente.id == null ?'Cadastrar novo Cliente' : 'Editar Cliente'}"></h1>
+            </div>
         </div>
-      </nav>
 
-      <main class="container">
-          <div class="row">
-              <div class="col-sm-12">
-              <!--    
-                <h1 th:unless="${cliente.id == null}">Editar Cliente</h1>
-                <h1 th:if="${cliente.id == null}">Cadastrar novo Cliente</h1>
-              -->
-              <h1 th:text="${cliente.id == null ?'Cadastrar novo Cliente' : 'Editar Cliente'}"></h1>
-              </div>
-          </div>
-
-          <div class="row">
-              <div class="col-sm-12">
-                  <form method="POST" th:object="${cliente}">
-                    <input type="hidden" th:field="*{id}">
-                      
-                    <div class="mb-3">
+        <div class="row">
+            <div class="col-sm-12">
+                <form method="POST" th:object="${cliente}">
+                <input type="hidden" th:field="*{id}">
+                    
+                <!--<div class="mb-3">
                         <label for="nome" class="form-label">Nome</label>
                         <input type="text" class="form-control" id="nome" th:field="*{nome}">
                     </div>
-                    <div class="mb-3">
+                -->
+                <div th:replace="~{_fragments/_bootstrap-fields :: input ('nome', 'Nome', 'text')}"></div>
+
+                <!--<div class="mb-3">
                         <label for="dataNascimento" class="form-label">Data de Nascimento</label>
                         <input type="date" class="form-control" id="dataNascimento" th:field="*{dataNascimento}">
                     </div>
-                    <div class="mb-3">
+                -->
+                <div th:replace="~{_fragments/_bootstrap-fields :: input ('dataNascimento', 'Data de Nascimento', 'date')}"></div>
+
+                <!--<div class="mb-3">
                         <label for="profissao" class="form-label">Profissão</label>
                         <input type="text" class="form-control" id="profissao" th:field="*{profissao}">
                     </div>
+                -->
+                <div th:replace="~{_fragments/_bootstrap-fields :: input ('profissao', 'Profissão', 'text')}"></div>
 
-                    <button type="submit" class="btn btn-primary">Salvar</button>
-              </form>
-              </div>
-          </div>
-      </main>
-      <script th:src="@{/js/bootstrap.min.js}"></script>
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </form>
+            </div>
+        </div>
+    </main>
 </body>
 </html>

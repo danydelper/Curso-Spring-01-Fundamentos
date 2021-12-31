@@ -1,81 +1,69 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html th:replace="~{_fragments/_layout :: layout (~{::title}, ~{::main})}">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-
-    <title>Spring Fundamentos - Listagem de Clientes</title>
+  <title>Spring Fundamentos - Listagem de Clientes</title>
 </head>
 <body>
-    <nav class="navbar navbar-light bg-light">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">TWClientes</a>
+  <main class="container">
+      <div class="row">
+          <div class="col-sm-12">
+            <h1>Listagem de Clientes</h1>
+          </div>
+      </div>
+
+      <div class="row">
+          <div class="col-sm-12">
+            <h5 th:if="${clientes.size == 0}">Não há clientes cadastrados no momento</h5>
+
+            <table class="table" th:if="${! #lists.isEmpty(clientes)}"> 
+            <!-- pode usar tb
+            <table class="table" th:unless="${#lists.isEmpty(clientes)}"> -->
+                <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nome</th>
+                  <th scope="col">Data de Nascimento</th>
+                  <th scope="col">Profissão</th>
+                  <th scope="col">Ações</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:each="cliente : ${clientes}">
+                  <th scope="row" th:text="${cliente.id}"></th>
+                  <td> 
+                    <a
+                      th:text="${cliente.nome}"
+                      th:href="@{/cliente/{id} (id=${cliente.id})}"
+                    ></a>
+                  </td>
+                  <!--<td th:text="${#temporals.format(cliente.dataNascimento)}"></td> --formata a data 01 de Janeiro de 1992 -->
+                  <td th:text="${#temporals.format(cliente.dataNascimento, 'dd/MM/yyyy')}"></td>
+                  <td th:text="${cliente.profissao}"></td>
+                  <td>
+                    <a th:href="@{/cliente/{id}/editar (id=${cliente.id})}"
+                        class="btn btn-warning"
+                    >
+                      Editar
+                    </a>
+                    <a 
+                      th:href="@{/cliente/{id}/excluir (id=${cliente.id})}" 
+                      class="btn btn-danger"
+                      onclick="return confirm('Tem certeza que deseja excluir o cliente?');"
+                    >
+                      Excluir
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-12">
+          <a th:href="@{/cliente/cadastrar}" class="btn btn-primary">Cadastrar Novo Cliente</a>
         </div>
-      </nav>
-
-      <main class="container">
-          <div class="row">
-              <div class="col-sm-12">
-                <h1>Listagem de Clientes</h1>
-              </div>
-          </div>
-
-          <div class="row">
-             <div class="col-sm-12">
-               <h5 th:if="${clientes.size == 0}">Não há clientes cadastrados no momento</h5>
-
-                <table class="table" th:if="${! #lists.isEmpty(clientes)}"> 
-                <!-- pode usar tb
-                <table class="table" th:unless="${#lists.isEmpty(clientes)}"> -->
-                    <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Nome</th>
-                      <th scope="col">Data de Nascimento</th>
-                      <th scope="col">Profissão</th>
-                      <th scope="col">Ações</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr th:each="cliente : ${clientes}">
-                      <th scope="row" th:text="${cliente.id}"></th>
-                      <td> 
-                        <a
-                          th:text="${cliente.nome}"
-                          th:href="@{/cliente/{id} (id=${cliente.id})}"
-                        ></a>
-                      </td>
-                      <!--<td th:text="${#temporals.format(cliente.dataNascimento)}"></td> --formata a data 01 de Janeiro de 1992 -->
-                      <td th:text="${#temporals.format(cliente.dataNascimento, 'dd/MM/yyyy')}"></td>
-                      <td th:text="${cliente.profissao}"></td>
-                      <td>
-                        <a th:href="@{/cliente/{id}/editar (id=${cliente.id})}"
-                           class="btn btn-warning"
-                        >
-                          Editar
-                        </a>
-                        <a 
-                          th:href="@{/cliente/{id}/excluir (id=${cliente.id})}" 
-                          class="btn btn-danger"
-                          onclick="return confirm('Tem certeza que deseja excluir o cliente?');"
-                        >
-                          Excluir
-                        </a>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-             </div>
-          </div>
-
-          <div class="row">
-            <div class="col-sm-12">
-              <a th:href="@{/cliente/cadastrar}" class="btn btn-primary">Cadastrar Novo Cliente</a>
-            </div>
-          </div>
-      </main>
-      <script th:src="@{/js/bootstrap.min.js}"></script>
+      </div>
+  </main>
 </body>
 </html>
