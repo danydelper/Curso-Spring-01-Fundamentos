@@ -24,8 +24,12 @@
 
           <div class="row">
              <div class="col-sm-12">
-                <table class="table">
-                  <thead>
+               <h5 th:if="${clientes.size == 0}">Não há clientes cadastrados no momento</h5>
+
+                <table class="table" th:if="${! #lists.isEmpty(clientes)}"> 
+                <!-- pode usar tb
+                <table class="table" th:unless="${#lists.isEmpty(clientes)}"> -->
+                    <thead>
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Nome</th>

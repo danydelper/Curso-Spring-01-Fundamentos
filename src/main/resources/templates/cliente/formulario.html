@@ -6,7 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
 
-    <title>Spring Fundamentos - Editar cliente</title>
+    <!--    
+        <title th:unless="${cliente.id == null}">Spring Fundamentos - Editar cliente</title>
+        <title th:if="${cliente.id == null}">Spring Fundamentos - Cadastrar novo Cliente</title>
+    -->
+    <title th:text="${cliente.id == null ?'Spring Fundamentos - Cadastrar novo Cliente' : 'Spring Fundamentos - Editar Cliente'}"></title>
+
 </head>
 <body>
     <nav class="navbar navbar-light bg-light">
@@ -18,7 +23,11 @@
       <main class="container">
           <div class="row">
               <div class="col-sm-12">
-                <h1>Editar cliente</h1>
+              <!--    
+                <h1 th:unless="${cliente.id == null}">Editar Cliente</h1>
+                <h1 th:if="${cliente.id == null}">Cadastrar novo Cliente</h1>
+              -->
+              <h1 th:text="${cliente.id == null ?'Cadastrar novo Cliente' : 'Editar Cliente'}"></h1>
               </div>
           </div>
 
